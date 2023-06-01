@@ -1,0 +1,21 @@
+.hanji_root {
+  display: grid;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  .hanji_before,
+  .hanji_after {
+    width: 100%;
+    grid-area: 1 / 1;
+  }
+
+  .hanji_before {
+    background-color: rgb(43, 0, 255);
+  }
+
+  .hanji_after {
+    clip-path: polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%);
+    background-color: rgb(255, 12, 206);
+  }
+}
