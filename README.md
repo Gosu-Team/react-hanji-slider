@@ -1,6 +1,6 @@
 ﻿# React Hanji Slider
 
-**React Hanji Slider** is a dynamic, user-friendly React component that allows users to compare two blocks of content interactively. By dragging a slider control, users can unveil or conceal the respective content blocks, providing a visually engaging method for comparing different types of data or images.
+**React Hanji Slider** is a React component that allows users to compare two blocks of content interactively. By dragging a slider control, users can unveil or conceal the respective content blocks, providing a visually engaging method for comparing different types of data or images.
 
 ## Demo
 
@@ -24,7 +24,7 @@ yarn add react-hanji-slider
 To use the component, first import `ReactHanjiSlider` into your file:
 
 ```jsx
-import ReactHanjiSlider from "react-stack-photos";
+import ReactHanjiSlider from "react-hanji-slider";
 ```
 
 ```jsx
@@ -33,7 +33,10 @@ import ReactHanjiSlider from "react-stack-photos";
 
 ## Props
 
-| Property           | Type           | Default | Description                                                    |
-| :----------------- | :------------- | :------ | :--------------------------------------------------------------|
-| `slideBefore`      | `Element`      | `null`  | Used to compare with second component                          |
-| `height`           | `Element`      | `null`  | Used to compare with first component                           |
+| Property             | Type           | Default     | Description                                          |
+| :--------------------|:---------------|:------------|:-----------------------------------------------------|
+| `slidePrimary`       | `Element`      | `null`      | Used to compare with Secondary component             |
+| `stylePrimary`       | `styles`       | `undefined` | Styles for Primary component wrap                    |
+| `slideSecondary`     | `Element`      | `null`      | Used to compare with Primary component               |
+| `styleSecondary`     | `styles`       | `undefined` | Styles for Secondary component wrap                  |
+| `defaultPercentage`  | `number`       | `50`        | Default proportion of content visibility             |

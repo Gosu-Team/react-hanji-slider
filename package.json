@@ -1,6 +1,6 @@
 {
   "name": "react-hanji-slider",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A React Component for Interactive Comparisons",
   "main": "dist/index.js",
   "scripts": {
@@ -40,12 +40,9 @@
   },
   "keywords": [
     "react",
-    "carousel",
     "react-component",
     "reactjs",
-    "carousel",
-    "slider",
-    "ticker"
+    "slider"
   ],
   "author": "Gosu.team <meta.ml@proton.me>",
   "license": "MIT",

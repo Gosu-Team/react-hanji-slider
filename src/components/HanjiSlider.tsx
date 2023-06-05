@@ -1,39 +1,59 @@
 import * as React from "react";
+import RangeInput from "./RangeInput";
 import "./style.scss";
 const { useState } = React;
 
 
-const DEFAULT_PERCENTAGE = 50
-
 interface HanjiSliderProps {
-  slideBefore: React.ReactElement
-  slideAfter: React.ReactElement
+  slidePrimary: React.ReactElement
+  stylePrimary?: Record<string, unknown>,
+  slideSecondary: React.ReactElement
+  styleSecondary?: Record<string, unknown>,
+  defaultPercentage?: number
 }
 
-export const ReactHanjiSlider = ({ slideBefore, slideAfter }: HanjiSliderProps): React.ReactElement => {
-  const [percentage, setPercentage] = useState(DEFAULT_PERCENTAGE)
+export const ReactHanjiSlider = ({
+  defaultPercentage = 50,
+  slidePrimary,
+  stylePrimary,
+  slideSecondary,
+  styleSecondary,
+}: HanjiSliderProps): React.ReactElement => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [percentage, setPercentage] = useState(defaultPercentage)
 
-
-  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPercentage(Number(event.target.value))
+  const handleSliderChange = (value: number): void => {
+    setPercentage(value)
   };
 
-  const style: React.CSSProperties = {
+  const percentagePrimary: React.CSSProperties = {
+    '--percentage': `${percentage}%`
+  } as React.CSSProperties;
+
+  const percentageSecondary: React.CSSProperties = {
     '--percentage': `${100 - percentage}%`
   } as React.CSSProperties;
 
   return (
-    <div className="hanji_root" >
-      <div className="hanji_before">{slideBefore}</div>
-      <div style={style} className="hanji_after">{slideAfter}</div>
+    <div className={`hanji-root ${isDragging ? 'hanji-no-selection' : ''}`}>
+      <div
+        style={{ ...percentagePrimary, ...stylePrimary }}
+        className="hanji-before">
+        {slidePrimary}
+      </div>
+      <div
+        style={{ ...percentageSecondary, ...styleSecondary }}
+        className="hanji-after">
+        {slideSecondary}
+      </div>
 
-      <input
-        type="range"
-        min="0"
-        max="100"
+      <RangeInput
+        isDragging={isDragging}
+        setIsDragging={setIsDragging}
+        min={0}
+        max={100}
         value={percentage}
-        onChange={handleSliderChange}
-      />
+        onChange={handleSliderChange} />
     </div>
   )
 }
