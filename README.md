@@ -28,7 +28,10 @@ import ReactHanjiSlider from "react-hanji-slider";
 ```
 
 ```jsx
-<ReactHanjiSlider slideBefore="<div>Any Component</div>" slideAfter="<div>Any Component</div>"/>
+<ReactHanjiSlider
+  slidePrimary="<div>Primary Component 🥢</div>"
+  slideSecondary="<div>Secondary Component 🍚</div>"
+/>
 ```
 
 ## Props
