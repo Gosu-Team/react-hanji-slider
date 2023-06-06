@@ -10,8 +10,6 @@ export default function Examples() {
         slidePrimary={
           <div>
             <h2>Primary</h2>
-            <h2>Primary</h2>
-            <h2>Primary</h2>
             <img src={imgPrimary} alt="My Awesome Image" />
           </div>
         }

@@ -18,7 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src", "__tests/ReactStackedCarousel.test.js"],
+  "include": ["src", "__tests/ReactStackedCarousel.test.js", "examples"],
   "exclude": [
     "node_modules",
     "dist",
