@@ -8,14 +8,18 @@ interface HanjiSliderProps {
   slideSecondary: React.ReactElement
   styleSecondary?: Record<string, unknown>,
   defaultPercentage?: number
+  styleWrap?: Record<string, unknown>,
+  separatorColor?: string
 }
 
 export const ReactHanjiSlider = ({
   defaultPercentage = 50,
+  styleWrap,
   slidePrimary,
   stylePrimary,
   slideSecondary,
   styleSecondary,
+  separatorColor
 }: HanjiSliderProps): React.ReactElement => {
   const [isDragging, setIsDragging] = useState(false);
   const [percentage, setPercentage] = useState(defaultPercentage)
@@ -36,9 +40,6 @@ export const ReactHanjiSlider = ({
     root: {
       position: 'relative',
       display: 'grid',
-      overflow: 'hidden',
-      height: '100%',
-      overflowWrap: 'anywhere',
       ...(isDragging && {
         WebkitTouchCallout: 'none',
         WebkitUserSelect: 'none',
@@ -47,8 +48,10 @@ export const ReactHanjiSlider = ({
         msUserSelect: 'none',
         userSelect: 'none',
       }),
+      ...styleWrap
     },
     secondary: {
+      overflow: 'auto',
       width: '100%',
       gridArea: '1 / 1',
       clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)`,
@@ -56,6 +59,7 @@ export const ReactHanjiSlider = ({
       ...styleSecondary
     },
     primary: {
+      overflow: 'auto',
       width: '100%',
       gridArea: '1 / 1',
       ...percentagePrimary,
@@ -77,7 +81,8 @@ export const ReactHanjiSlider = ({
         min={0}
         max={100}
         value={percentage}
-        onChange={handleSliderChange} />
+        onChange={handleSliderChange}
+        separatorColor={separatorColor} />
     </div >
   )
 }

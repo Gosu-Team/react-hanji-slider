@@ -1,9 +1,10 @@
 ﻿# React Hanji Slider
 
-**React Hanji Slider** is a React component that allows users to compare two blocks of content interactively. By dragging a slider control, users can unveil or conceal the respective content blocks, providing a visually engaging method for comparing different types of data or images.
+**React Hanji Slider** is a React component that allows users to compare two blocks of content interactively. By dragging a slider control, users can unveil or conceal the respective content blocks, providing a visually engaging method for comparing different types of data or images
 
 ## Demo
 
+Examples: https://react-hanji-slider-demo.vercel.app/
 
 ## Installation
 
@@ -29,8 +30,8 @@ import ReactHanjiSlider from "react-hanji-slider";
 
 ```jsx
 <ReactHanjiSlider
-  slidePrimary="<div>Primary Component 🥢</div>"
-  slideSecondary="<div>Secondary Component 🍚</div>"
+  slidePrimary={<div>Primary Component 🥢</div>}
+  slideSecondary={<div>Secondary Component 🍚</div>}
 />
 ```
 
@@ -42,4 +43,6 @@ import ReactHanjiSlider from "react-hanji-slider";
 | `stylePrimary`       | `styles`       | `undefined` | Styles for Primary component wrap                    |
 | `slideSecondary`     | `Element`      | `null`      | Used to compare with Primary component               |
 | `styleSecondary`     | `styles`       | `undefined` | Styles for Secondary component wrap                  |
+| `styleWrap`          | `styles`       | `undefined` | Styles for root wrap                                 |
 | `defaultPercentage`  | `number`       | `50`        | Default proportion of content visibility             |
+| `separatorColor`     | `string`       | `#fff`      | Color of separator                                   |

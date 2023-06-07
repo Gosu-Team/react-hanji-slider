@@ -6,6 +6,7 @@ interface RangeInputProps {
     onChange: (value: number) => void;
     isDragging: boolean;
     setIsDragging: (value: boolean) => void;
+    separatorColor?: string;
 }
 declare const RangeInput: React.FC<RangeInputProps>;
 export default RangeInput;

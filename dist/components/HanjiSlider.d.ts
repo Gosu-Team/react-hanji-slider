@@ -5,9 +5,11 @@ interface HanjiSliderProps {
     slideSecondary: React.ReactElement;
     styleSecondary?: Record<string, unknown>;
     defaultPercentage?: number;
+    styleWrap?: Record<string, unknown>;
+    separatorColor?: string;
 }
 export declare const ReactHanjiSlider: {
-    ({ defaultPercentage, slidePrimary, stylePrimary, slideSecondary, styleSecondary, }: HanjiSliderProps): React.ReactElement;
+    ({ defaultPercentage, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor }: HanjiSliderProps): React.ReactElement;
     displayName: string;
 };
 export {};

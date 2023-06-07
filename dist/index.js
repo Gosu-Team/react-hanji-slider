@@ -39,70 +39,85 @@ function _interopNamespace(e) {
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var React__namespace = /*#__PURE__*/_interopNamespace(React);
 
-const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange }) => {
+const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, separatorColor = "#fff", }) => {
     const sliderRef = React.useRef(null);
-    const handleMouseMove = (event) => {
+    const handleMove = (event) => {
         if (!isDragging || sliderRef.current === null) {
             return;
         }
+        const clientX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
         const rect = sliderRef.current.getBoundingClientRect();
-        let newValue = ((event.clientX - rect.left) / rect.width) * (max - min) + min;
+        let newValue = ((clientX - rect.left) / rect.width) * (max - min) + min;
         newValue = Math.max(Math.min(newValue, max), min);
         onChange(Math.round(newValue));
     };
-    const handleMouseDown = () => { setIsDragging(true); };
-    const handleMouseUp = () => { setIsDragging(false); };
+    const handleDown = (event) => {
+        setIsDragging(true);
+        if (event.type === "mousedown" || event.type === "touchstart") {
+            handleMove(event.nativeEvent);
+        }
+    };
+    const handleUp = () => {
+        setIsDragging(false);
+    };
     React__default["default"].useEffect(() => {
-        window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("mouseup", handleMouseUp);
+        const handleMoveTouch = (event) => {
+            handleMove(event);
+        };
+        window.addEventListener("mousemove", handleMove);
+        window.addEventListener("mouseup", handleUp);
+        window.addEventListener("touchmove", handleMoveTouch);
+        window.addEventListener("touchend", handleUp);
         return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("mousemove", handleMove);
+            window.removeEventListener("mouseup", handleUp);
+            window.removeEventListener("touchmove", handleMoveTouch);
+            window.removeEventListener("touchend", handleUp);
         };
     }, [isDragging]);
     const styles = {
-        root: Object.assign({ height: 0, width: '100%', border: 0, padding: 0, transition: `opacity 0.3s` }, (isDragging && {
-            opacity: 0.3
+        root: Object.assign({ height: 0, width: "100%", border: 0, padding: 0, transition: "opacity 0.3s" }, (isDragging && {
+            opacity: 0.3,
         })),
         thumb: {
-            position: 'absolute',
+            position: "absolute",
             top: 0,
-            height: '100%',
-            width: '16px',
-            transform: 'translateX(-50%)',
-            cursor: 'col-resize',
-            left: `${((value - min) / (max - min)) * 100}%`
+            height: "100%",
+            width: "16px",
+            transform: "translateX(-50%)",
+            cursor: "col-resize",
+            left: `${((value - min) / (max - min)) * 100}%`,
         },
         line: {
-            height: '100%',
-            width: '1px',
-            background: '#fff',
-            marginLeft: '8px',
-            display: 'grid',
-            alignItems: 'center',
+            height: "100%",
+            width: "1px",
+            background: separatorColor,
+            marginLeft: "8px",
+            display: "grid",
+            alignItems: "center",
         },
         arrowPrimary: {
-            display: 'inline-block',
-            width: '10px',
-            height: '10px',
-            transform: 'rotate(45deg)',
-            gridArea: ' 1/1',
-            borderBottom: '1px solid #fff',
-            borderLeft: '1px solid #fff',
-            marginLeft: '-11px',
+            display: "inline-block",
+            width: "10px",
+            height: "10px",
+            transform: "rotate(45deg)",
+            gridArea: "1/1",
+            borderBottom: `1px solid ${separatorColor}`,
+            borderLeft: `1px solid ${separatorColor}`,
+            marginLeft: "-11px",
         },
         arrowSecondary: {
-            display: 'inline-block',
-            width: '10px',
-            height: '10px',
-            gridArea: ' 1/1',
-            borderBottom: '1px solid #fff',
-            borderLeft: '1px solid #fff',
-            transform: 'rotate(-135deg)',
-            marginRight: '-11px',
-        }
+            display: "inline-block",
+            width: "10px",
+            height: "10px",
+            gridArea: "1/1",
+            borderBottom: `1px solid ${separatorColor}`,
+            borderLeft: `1px solid ${separatorColor}`,
+            transform: "rotate(-135deg)",
+            marginLeft: "1px",
+        },
     };
-    return (React__default["default"].createElement("button", { ref: sliderRef, onMouseDown: handleMouseDown, style: styles.root },
+    return (React__default["default"].createElement("button", { ref: sliderRef, onMouseDown: handleDown, onTouchStart: handleDown, style: styles.root },
         React__default["default"].createElement("div", { style: styles.thumb },
             React__default["default"].createElement("div", { style: styles.line },
                 React__default["default"].createElement("div", { style: styles.arrowPrimary }),
@@ -110,7 +125,7 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange }) =>
 };
 
 const { useState } = React__namespace;
-const ReactHanjiSlider = ({ defaultPercentage = 50, slidePrimary, stylePrimary, slideSecondary, styleSecondary, }) => {
+const ReactHanjiSlider = ({ defaultPercentage = 50, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [percentage, setPercentage] = useState(defaultPercentage);
     const handleSliderChange = (value) => {
@@ -123,21 +138,21 @@ const ReactHanjiSlider = ({ defaultPercentage = 50, slidePrimary, stylePrimary, 
         '--percentage': `${100 - percentage}%`
     };
     const styles = {
-        root: Object.assign({ position: 'relative', display: 'grid', overflow: 'hidden', height: '100%', overflowWrap: 'anywhere' }, (isDragging && {
+        root: Object.assign(Object.assign({ position: 'relative', display: 'grid' }, (isDragging && {
             WebkitTouchCallout: 'none',
             WebkitUserSelect: 'none',
             KhtmlUserSelect: 'none',
             MozUserSelect: 'none',
             msUserSelect: 'none',
             userSelect: 'none',
-        })),
-        secondary: Object.assign(Object.assign({ width: '100%', gridArea: '1 / 1', clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)` }, percentageSecondary), styleSecondary),
-        primary: Object.assign(Object.assign({ width: '100%', gridArea: '1 / 1' }, percentagePrimary), stylePrimary),
+        })), styleWrap),
+        secondary: Object.assign(Object.assign({ overflow: 'auto', width: '100%', gridArea: '1 / 1', clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)` }, percentageSecondary), styleSecondary),
+        primary: Object.assign(Object.assign({ overflow: 'auto', width: '100%', gridArea: '1 / 1' }, percentagePrimary), stylePrimary),
     };
     return (React__namespace.createElement("div", { style: styles.root },
         React__namespace.createElement("div", { style: styles.primary }, slidePrimary),
         React__namespace.createElement("div", { style: styles.secondary }, slideSecondary),
-        React__namespace.createElement(RangeInput, { isDragging: isDragging, setIsDragging: setIsDragging, min: 0, max: 100, value: percentage, onChange: handleSliderChange })));
+        React__namespace.createElement(RangeInput, { isDragging: isDragging, setIsDragging: setIsDragging, min: 0, max: 100, value: percentage, onChange: handleSliderChange, separatorColor: separatorColor })));
 };
 ReactHanjiSlider.displayName = "ReactHanjiSlider";
 
