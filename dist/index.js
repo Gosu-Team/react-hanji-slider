@@ -18,29 +18,10 @@ var React = require('react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () { return e[k]; }
-        });
-      }
-    });
-  }
-  n["default"] = e;
-  return Object.freeze(n);
-}
-
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var React__namespace = /*#__PURE__*/_interopNamespace(React);
 
 const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, separatorColor = "#fff", }) => {
-    const sliderRef = React.useRef(null);
+    const sliderRef = React__default["default"].useRef(null);
     const handleMove = (event) => {
         if (!isDragging || sliderRef.current === null) {
             return;
@@ -74,9 +55,9 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, sepa
             window.removeEventListener("touchmove", handleMoveTouch);
             window.removeEventListener("touchend", handleUp);
         };
-    }, [isDragging]);
+    }, [handleMove, handleUp]);
     const styles = {
-        root: Object.assign({ height: 0, width: "100%", border: 0, padding: 0, transition: "opacity 0.3s" }, (isDragging && {
+        root: Object.assign({ border: 0, padding: 0, transition: "opacity 0.3s" }, (isDragging && {
             opacity: 0.3,
         })),
         thumb: {
@@ -97,7 +78,6 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, sepa
             alignItems: "center",
         },
         arrowPrimary: {
-            display: "inline-block",
             width: "10px",
             height: "10px",
             transform: "rotate(45deg)",
@@ -107,7 +87,6 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, sepa
             marginLeft: "-11px",
         },
         arrowSecondary: {
-            display: "inline-block",
             width: "10px",
             height: "10px",
             gridArea: "1/1",
@@ -124,37 +103,30 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, sepa
                 React__default["default"].createElement("div", { style: styles.arrowSecondary })))));
 };
 
-const { useState } = React__namespace;
-const ReactHanjiSlider = ({ defaultPercentage = 50, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor }) => {
-    const [isDragging, setIsDragging] = useState(false);
-    const [percentage, setPercentage] = useState(defaultPercentage);
+const HanjiSlider = ({ defaultPercentage = 50, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor, }) => {
+    const [isDragging, setIsDragging] = React__default["default"].useState(false);
+    const [percentage, setPercentage] = React__default["default"].useState(defaultPercentage);
     const handleSliderChange = (value) => {
         setPercentage(value);
     };
-    const percentagePrimary = {
-        '--percentage': `${percentage}%`
-    };
-    const percentageSecondary = {
-        '--percentage': `${100 - percentage}%`
-    };
     const styles = {
-        root: Object.assign(Object.assign({ position: 'relative', display: 'grid' }, (isDragging && {
-            WebkitTouchCallout: 'none',
-            WebkitUserSelect: 'none',
-            KhtmlUserSelect: 'none',
-            MozUserSelect: 'none',
-            msUserSelect: 'none',
-            userSelect: 'none',
+        root: Object.assign(Object.assign({ position: "relative", display: "grid" }, (isDragging && {
+            WebkitTouchCallout: "none",
+            WebkitUserSelect: "none",
+            KhtmlUserSelect: "none",
+            MozUserSelect: "none",
+            msUserSelect: "none",
+            userSelect: "none",
         })), styleWrap),
-        secondary: Object.assign(Object.assign({ overflow: 'auto', width: '100%', gridArea: '1 / 1', clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)` }, percentageSecondary), styleSecondary),
-        primary: Object.assign(Object.assign({ overflow: 'auto', width: '100%', gridArea: '1 / 1' }, percentagePrimary), stylePrimary),
+        secondary: Object.assign(Object.assign({ overflow: "auto", width: "100%", gridArea: "1 / 1", clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)` }, styleSecondary), { "--percentage": `${percentage}%` }),
+        primary: Object.assign({ overflow: "auto", width: "100%", gridArea: "1 / 1" }, stylePrimary),
     };
-    return (React__namespace.createElement("div", { style: styles.root },
-        React__namespace.createElement("div", { style: styles.primary }, slidePrimary),
-        React__namespace.createElement("div", { style: styles.secondary }, slideSecondary),
-        React__namespace.createElement(RangeInput, { isDragging: isDragging, setIsDragging: setIsDragging, min: 0, max: 100, value: percentage, onChange: handleSliderChange, separatorColor: separatorColor })));
+    return (React__default["default"].createElement("div", { style: styles.root },
+        React__default["default"].createElement("div", { style: styles.primary }, slidePrimary),
+        React__default["default"].createElement("div", { style: styles.secondary }, slideSecondary),
+        React__default["default"].createElement(RangeInput, { isDragging: isDragging, setIsDragging: setIsDragging, min: 0, max: 100, value: percentage, onChange: handleSliderChange, separatorColor: separatorColor })));
 };
-ReactHanjiSlider.displayName = "ReactHanjiSlider";
+HanjiSlider.displayName = "ReactHanjiSlider";
 
-exports["default"] = ReactHanjiSlider;
+exports["default"] = HanjiSlider;
 //# sourceMappingURL=index.js.map

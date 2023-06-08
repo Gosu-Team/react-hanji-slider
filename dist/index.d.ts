@@ -1,1 +1,1 @@
-export { ReactHanjiSlider as default } from './components/HanjiSlider';
+export { HanjiSlider as default } from './components/HanjiSlider';

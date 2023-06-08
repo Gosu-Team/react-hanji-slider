@@ -1,15 +1,12 @@
-import * as React from "react";
+import React from "react";
 interface HanjiSliderProps {
     slidePrimary: React.ReactElement;
-    stylePrimary?: Record<string, unknown>;
+    stylePrimary?: React.CSSProperties;
     slideSecondary: React.ReactElement;
-    styleSecondary?: Record<string, unknown>;
+    styleSecondary?: React.CSSProperties;
     defaultPercentage?: number;
-    styleWrap?: Record<string, unknown>;
+    styleWrap?: React.CSSProperties;
     separatorColor?: string;
 }
-export declare const ReactHanjiSlider: {
-    ({ defaultPercentage, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor }: HanjiSliderProps): React.ReactElement;
-    displayName: string;
-};
+export declare const HanjiSlider: React.FC<HanjiSliderProps>;
 export {};

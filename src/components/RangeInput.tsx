@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 interface RangeInputProps {
   min: number;
@@ -19,7 +19,7 @@ const RangeInput: React.FC<RangeInputProps> = ({
   onChange,
   separatorColor = "#fff",
 }) => {
-  const sliderRef = useRef<HTMLButtonElement>(null);
+  const sliderRef = React.useRef<HTMLButtonElement>(null);
 
   const handleMove = (event: MouseEvent | TouchEvent): void => {
     if (!isDragging || sliderRef.current === null) {
@@ -66,12 +66,10 @@ const RangeInput: React.FC<RangeInputProps> = ({
       window.removeEventListener("touchmove", handleMoveTouch);
       window.removeEventListener("touchend", handleUp);
     };
-  }, [isDragging]);
+  }, [handleMove, handleUp]);
 
   const styles: Record<string, React.CSSProperties> = {
     root: {
-      height: 0,
-      width: "100%",
       border: 0,
       padding: 0,
       transition: "opacity 0.3s",
@@ -97,7 +95,6 @@ const RangeInput: React.FC<RangeInputProps> = ({
       alignItems: "center",
     },
     arrowPrimary: {
-      display: "inline-block",
       width: "10px",
       height: "10px",
       transform: "rotate(45deg)",
@@ -107,7 +104,6 @@ const RangeInput: React.FC<RangeInputProps> = ({
       marginLeft: "-11px",
     },
     arrowSecondary: {
-      display: "inline-block",
       width: "10px",
       height: "10px",
       gridArea: "1/1",

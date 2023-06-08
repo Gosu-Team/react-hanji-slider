@@ -1,71 +1,61 @@
-import * as React from "react";
+import React from "react";
 import RangeInput from "./RangeInput";
-const { useState } = React;
 
 interface HanjiSliderProps {
-  slidePrimary: React.ReactElement
-  stylePrimary?: Record<string, unknown>,
-  slideSecondary: React.ReactElement
-  styleSecondary?: Record<string, unknown>,
-  defaultPercentage?: number
-  styleWrap?: Record<string, unknown>,
-  separatorColor?: string
+  slidePrimary: React.ReactElement;
+  stylePrimary?: React.CSSProperties;
+  slideSecondary: React.ReactElement;
+  styleSecondary?: React.CSSProperties;
+  defaultPercentage?: number;
+  styleWrap?: React.CSSProperties;
+  separatorColor?: string;
 }
 
-export const ReactHanjiSlider = ({
+export const HanjiSlider: React.FC<HanjiSliderProps> = ({
   defaultPercentage = 50,
   styleWrap,
   slidePrimary,
   stylePrimary,
   slideSecondary,
   styleSecondary,
-  separatorColor
-}: HanjiSliderProps): React.ReactElement => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [percentage, setPercentage] = useState(defaultPercentage)
+  separatorColor,
+}) => {
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [percentage, setPercentage] = React.useState(defaultPercentage);
 
   const handleSliderChange = (value: number): void => {
-    setPercentage(value)
+    setPercentage(value);
   };
-
-  const percentagePrimary: React.CSSProperties = {
-    '--percentage': `${percentage}%`
-  } as React.CSSProperties;
-
-  const percentageSecondary: React.CSSProperties = {
-    '--percentage': `${100 - percentage}%`
-  } as React.CSSProperties;
 
   const styles: Record<string, React.CSSProperties> = {
     root: {
-      position: 'relative',
-      display: 'grid',
+      position: "relative",
+      display: "grid",
       ...(isDragging && {
-        WebkitTouchCallout: 'none',
-        WebkitUserSelect: 'none',
-        KhtmlUserSelect: 'none',
-        MozUserSelect: 'none',
-        msUserSelect: 'none',
-        userSelect: 'none',
+        WebkitTouchCallout: "none",
+        WebkitUserSelect: "none",
+        KhtmlUserSelect: "none",
+        MozUserSelect: "none",
+        msUserSelect: "none",
+        userSelect: "none",
       }),
-      ...styleWrap
+      ...styleWrap,
     },
     secondary: {
-      overflow: 'auto',
-      width: '100%',
-      gridArea: '1 / 1',
+      overflow: "auto",
+      width: "100%",
+      gridArea: "1 / 1",
       clipPath: `polygon(var(--percentage) 0%, 100% 0%, 100% 100%, var(--percentage) 100%)`,
-      ...percentageSecondary,
-      ...styleSecondary
+      ...styleSecondary,
+      ...{ "--percentage": `${percentage}%` }
     },
     primary: {
-      overflow: 'auto',
-      width: '100%',
-      gridArea: '1 / 1',
-      ...percentagePrimary,
-      ...stylePrimary
+      overflow: "auto",
+      width: "100%",
+      gridArea: "1 / 1",
+      ...stylePrimary,
     },
-  }
+  };
 
   return (
     <div style={styles.root}>
@@ -82,9 +72,10 @@ export const ReactHanjiSlider = ({
         max={100}
         value={percentage}
         onChange={handleSliderChange}
-        separatorColor={separatorColor} />
-    </div >
-  )
-}
+        separatorColor={separatorColor}
+      />
+    </div>
+  );
+};
 
-ReactHanjiSlider.displayName = "ReactHanjiSlider";
+HanjiSlider.displayName = "ReactHanjiSlider";
