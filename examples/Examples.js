@@ -7,6 +7,7 @@ export default function Examples() {
   return (
     <div className="main">
       <HanjiSlider
+        animation={{step1: 0, step2: 100, step3: 75}}
         slidePrimary={
           <div>
             <h2>Primary</h2>

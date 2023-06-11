@@ -103,9 +103,40 @@ const RangeInput = ({ isDragging, setIsDragging, min, max, value, onChange, sepa
                 React__default["default"].createElement("div", { style: styles.arrowSecondary })))));
 };
 
-const HanjiSlider = ({ defaultPercentage = 50, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor, }) => {
+const useProgressAnimation = ({ percentage, setPercentage, animation }) => {
+    const [isAnimated, setIsAnimated] = React.useState(false);
+    const [decreasing, setDecreasing] = React.useState(false);
+    React.useEffect(() => {
+        if (animation === null || isAnimated)
+            return;
+        const timer = setInterval(() => {
+            if (!decreasing && percentage < animation.step2) {
+                setPercentage(prevProgress => prevProgress + 1);
+            }
+            else if (!decreasing && percentage >= animation.step2) {
+                setDecreasing(true);
+            }
+            else if (decreasing && percentage > animation.step3) {
+                setPercentage(prevProgress => prevProgress - 1);
+            }
+            else if (decreasing && percentage <= animation.step3) {
+                setIsAnimated(true);
+                clearInterval(timer);
+            }
+        }, (animation != null) ? animation.speed : 1);
+        return () => { clearInterval(timer); };
+    }, [percentage, animation, decreasing, isAnimated]);
+};
+
+const HanjiSlider = ({ defaultPercentage = 50, styleWrap, slidePrimary, stylePrimary, slideSecondary, styleSecondary, separatorColor, animation = null }) => {
+    const hasAnimation = animation !== null;
     const [isDragging, setIsDragging] = React__default["default"].useState(false);
-    const [percentage, setPercentage] = React__default["default"].useState(defaultPercentage);
+    const [percentage, setPercentage] = React__default["default"].useState(hasAnimation ? animation.step1 : defaultPercentage);
+    useProgressAnimation({
+        percentage,
+        setPercentage,
+        animation
+    });
     const handleSliderChange = (value) => {
         setPercentage(value);
     };

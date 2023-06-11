@@ -37,12 +37,13 @@ import ReactHanjiSlider from "react-hanji-slider";
 
 ## Props
 
-| Property             | Type           | Default     | Description                                          |
-| :--------------------|:---------------|:------------|:-----------------------------------------------------|
-| `slidePrimary`       | `Element`      | `null`      | Used to compare with Secondary component             |
-| `stylePrimary`       | `styles`       | `undefined` | Styles for Primary component wrap                    |
-| `slideSecondary`     | `Element`      | `null`      | Used to compare with Primary component               |
-| `styleSecondary`     | `styles`       | `undefined` | Styles for Secondary component wrap                  |
-| `styleWrap`          | `styles`       | `undefined` | Styles for root wrap                                 |
-| `defaultPercentage`  | `number`       | `50`        | Default proportion of content visibility             |
-| `separatorColor`     | `string`       | `#fff`      | Color of separator                                   |
+| Property             | Type           | Default     | Description                                                 |
+| :--------------------|:---------------|:------------|:------------------------------------------------------------|
+| `slidePrimary`       | `Element`      | `null`      | Used to compare with Secondary component                    |
+| `stylePrimary`       | `styles`       | `undefined` | Styles for Primary component wrap                           |
+| `slideSecondary`     | `Element`      | `null`      | Used to compare with Primary component                      |
+| `styleSecondary`     | `styles`       | `undefined` | Styles for Secondary component wrap                         |
+| `styleWrap`          | `styles`       | `undefined` | Styles for root wrap                                        |
+| `defaultPercentage`  | `number`       | `50`        | Default proportion of content visibility                    |
+| `separatorColor`     | `string`       | `#fff`      | Color of separator                                          |
+| `animation`          | `object`       | `null`      | speed?: number, step1: number, step2: number, step3: number |

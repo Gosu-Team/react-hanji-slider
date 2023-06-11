@@ -20,7 +20,6 @@ const RangeInput: React.FC<RangeInputProps> = ({
   separatorColor = "#fff",
 }) => {
   const sliderRef = React.useRef<HTMLButtonElement>(null);
-
   const handleMove = (event: MouseEvent | TouchEvent): void => {
     if (!isDragging || sliderRef.current === null) {
       return;
