@@ -1,5 +1,4 @@
 import React from "react";
-
 interface RangeInputProps {
   min: number;
   max: number;

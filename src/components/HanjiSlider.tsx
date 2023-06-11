@@ -21,7 +21,6 @@ interface HanjiSliderProps {
   animation?: Animation
 }
 
-
 export const HanjiSlider: React.FC<HanjiSliderProps> = ({
   defaultPercentage = 50,
   styleWrap,
