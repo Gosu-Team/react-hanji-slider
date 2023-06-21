@@ -1,6 +1,6 @@
 {
   "name": "react-hanji-slider",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "A React Component for Interactive Comparisons",
   "main": "dist/index.js",
   "scripts": {

@@ -46,4 +46,4 @@ import ReactHanjiSlider from "react-hanji-slider";
 | `styleWrap`          | `styles`       | `undefined` | Styles for root wrap                                        |
 | `defaultPercentage`  | `number`       | `50`        | Default proportion of content visibility                    |
 | `separatorColor`     | `string`       | `#fff`      | Color of separator                                          |
-| `animation`          | `object`       | `null`      | speed?: number, step1: number, step2: number, step3: number |
+| `value`              | `number`       | `undefined` | Used to set custom scroll position                          |

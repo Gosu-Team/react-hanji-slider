@@ -1,14 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RangeInput from "./RangeInput";
-import useProgressAnimation from "../hooks/progressAnimation.hook";
-
-
-export interface Animation {
-  speed?: number,
-  step1: number,
-  step2: number
-  step3: number
-}
 
 interface HanjiSliderProps {
   slidePrimary: React.ReactElement;
@@ -16,29 +7,31 @@ interface HanjiSliderProps {
   slideSecondary: React.ReactElement;
   styleSecondary?: React.CSSProperties;
   defaultPercentage?: number;
+  value?: number;
   styleWrap?: React.CSSProperties;
   separatorColor?: string;
-  animation?: Animation
 }
 
 export const HanjiSlider: React.FC<HanjiSliderProps> = ({
   defaultPercentage = 50,
+  value,
   styleWrap,
   slidePrimary,
   stylePrimary,
   slideSecondary,
   styleSecondary,
   separatorColor,
-  animation = null
 }) => {
-  const hasAnimation = animation !== null
   const [isDragging, setIsDragging] = React.useState(false);
-  const [percentage, setPercentage] = React.useState(hasAnimation ? animation.step1 : defaultPercentage);
-  useProgressAnimation({
-    percentage,
-    setPercentage,
-    animation
-  })
+  const [percentage, setPercentage] = React.useState(defaultPercentage);
+
+  useEffect(() => {
+    if (typeof value === 'undefined') {
+      return
+    }
+
+    setPercentage(value)
+  }, [value])
 
   const handleSliderChange = (value: number): void => {
     setPercentage(value);
